@@ -1,11 +1,11 @@
 var gameport = document.getElementById("gameport");
 
-var renderer = PIXI.autoDetectRenderer(400, 400, {backgroundColor: 0x3344ee});
+var renderer = PIXI.autoDetectRenderer(800, 600, {backgroundColor: 0x9EA7F9});
 gameport.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage("cs413.png");
+var texture = PIXI.Texture.fromImage("bricks.png");
 
 var sprite = new PIXI.Sprite(texture);
 
@@ -19,7 +19,7 @@ stage.addChild(sprite);
 
 function animate() {
     requestAnimationFrame(animate);
-    sprite.rotation += 0.1;
+    //sprite.rotation += 0.1;
     renderer.render(stage);
 }
 animate();
