@@ -8,11 +8,20 @@ var gameStage = new PIXI.Container();
 //var startStage = new PIXI.Container();
 
 //var gameStart = false;
-var title = new PIXI.Sprite(PIXI.Texture.fromImage('title.png'));
+//var title = new PIXI.Sprite(PIXI.Texture.fromImage('title.png'));
 
 var credits = new PIXI.Sprite(PIXI.Texture.fromImage("credits.png"));
-
 var start = new PIXI.Sprite(PIXI.Texture.fromImage("instructions1.png"));
+var title = new PIXI.Sprite(PIXI.Texture.fromImage("test.png"));
+
+var titleText = new PIXI.Text("Pluto's Mission", {font:"30px Monospace"});
+var titleText1 = new PIXI.Text("Press right arrow key to continue", {font:"30px Monospace"})
+var creditsText = new PIXI.Text("Credits:", {font:"30px Monospace"});
+var creditsText1 = new PIXI.Text("All code, images, and sounds\nproduced by Kaina Crow", {font:"30px Monospace"});
+var creditsText2 = new PIXI.Text("Press the tab key to continue", {font:"30px Monospace"});
+var startText = new PIXI.Text("Your mission is to get the dog to\nthe whitebone. Watch out for\nobstacles (cat and walls). Use\nWASD or arrow keys to play.", {font:"30px Monospace"});
+var startText1 = new PIXI.Text("Press Enter to play game.", {font:"30px Monospace"});
+
 
 
 
@@ -32,8 +41,9 @@ gameStage.addChild(backPicture);
     
 var obstacles = new PIXI.Container();
 var loseTexture = new PIXI.Sprite(PIXI.Texture.fromImage("lose.png"));
-var lose = new PIXI.Text("You got in a fight with the cat and lost.", {font:"30px Times New Roman", fill: "#fff"})
+var lose = new PIXI.Text("You got in a fight\nwith the cat and lost.", {font:"30px Monospace", fill: "#fff"});
 var winTexture = new PIXI.Sprite(PIXI.Texture.fromImage("winCollision.png"));
+var win = new PIXI.Text("You got the dog to the \nbone. You win!", {font:"30px Monospace"});
 gameStage.addChild(lose);
 
 
@@ -44,7 +54,6 @@ var sounds;
 
 function soundready() {
     sounds = PIXI.audioManager.getAudio("gameMusic.mp3");
-    console.log(sounds);
     sounds.loop = true;
     sounds.play();
 }
@@ -159,28 +168,66 @@ function ready() {
     obstacles.addChild(level5);
     obstacles.addChild(level6);
 
-    winTexture.position.x = 0;
-    winTexture.position.y = 0;
-    winTexture.visible = false;
-    gameStage.addChild(winTexture);
-    
-    
     start.position.x = 0;
     start.position.y = 0;
     gameStage.addChild(start);
+    startText.position.x = 100;
+    startText.position.y = 200;
+    gameStage.addChild(startText);
+    startText1.position.x = 100;
+    startText1.position.y = 400;
+    gameStage.addChild(startText1);
     
     credits.position.x = 0;
     credits.position.y = 0;
     gameStage.addChild(credits);
     
+    creditsText.position.x = 300;
+    creditsText.position.y = 200;
+    gameStage.addChild(creditsText);
+    creditsText1.position.x = 100;
+    creditsText1.position.y = 300;
+    gameStage.addChild(creditsText1);
+    creditsText2.position.x = 100;
+    creditsText2.position.y = 500;
+    gameStage.addChild(creditsText2);
+    
     title.position.x = 0;
     title.position.y = 0;
     gameStage.addChild(title);
     
+    // test.position.x = 0;
+    // test.position.y = 0;
+    // gameStage.addChild(test);
+    
+    titleText.position.x = 260;
+    titleText.position.y = 200;
+    gameStage.addChild(titleText);
+    
+    titleText1.position.x = 100;
+    titleText1.position.y = 250;
+    gameStage.addChild(titleText1);
+    
+    runner1 = new PIXI.extras.MovieClip(frames);
+    runner1.animationSpeed = 0.17;
+    runner1.position.y = 300;
+    runner1.position.x = 350;
+    runner1.height = 72;
+    runner1.width = 100;
+    gameStage.addChild(runner1);
+    runner1.play();
+    
     
     
 
-
+    winTexture.position.x = 0;
+    winTexture.position.y = 0;
+    win.position.x = 200;
+    win.position.y = 200;
+    winTexture.visible = false;
+    win.visible = false;
+    gameStage.addChild(winTexture);
+    gameStage.addChild(win);
 
     loseTexture.position.x = 0;
     loseTexture.position.y = 0;
@@ -189,6 +236,7 @@ function ready() {
     loseTexture.visible = false;
     lose.visible = false;
     gameStage.addChild(loseTexture);
+    gameStage.addChild(lose);
 
     //gameStage.addChild(doggy);
 }
@@ -210,15 +258,23 @@ function keyupEventHandler(e) {
 function keydownEventHandler(e) {
     keys[e.which] = true;
     title.visible = false;
+    titleText.visible = false;
+    titleText1.visible =  false;
+    runner1.visible = false;
     runner.play();
     if([32, 37, 38, 39, 40, 9].indexOf(e.keyCode) > -1) {
         e.preventDefault();
     }
     if([9].indexOf(e.keyCode) > -1) {
         credits.visible = false;
+        creditsText.visible = false;
+        creditsText1.visible = false;
+        creditsText2.visible = false;
     }
     if([13].indexOf(e.keyCode) > -1) {
         start.visible = false;
+        startText.visible = false;
+        startText1.visible = false;
     }
     
 }
@@ -289,6 +345,7 @@ function winningCollision() {
 
         if (!(bone.position.x > (runner.position.x + runner.width) || (bone.position.x + bone.width) < runner.position.x || bone.position.y > (runner.position.y + runner.height) || (bone.position.y + bone.height) < runner.position.y)){
             winTexture.visible = true;
+            win.visible = true;
             document.removeEventListener('keydown', keydownEventHandler);
         
 
