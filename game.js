@@ -5,29 +5,68 @@ var renderer = PIXI.autoDetectRenderer(800, 600, {backgroundColor: 0x33bbe8});
 gameport.appendChild(renderer.view);
 
 var gameStage = new PIXI.Container();
+//var startStage = new PIXI.Container();
+
+//var gameStart = false;
+var start = new PIXI.Sprite(PIXI.Texture.fromImage("instructions2.png"));
+start.position.x = 0;
+start.position.y = 0;
+//start.visible = true;
+
+//document.addEventListener('onclick', start.visible = false);
+//startStage.addChild(gameStage);
+//gameStage.visible = false;
 
 
 
-PIXI.loader
-    .add("assets.json")
-    .load(ready);
+PIXI.loader.add("assets.json").load(ready);
+PIXI.loader.add("gameMusic.mp3").load(soundready);
     
 var obstacles = new PIXI.Container();
 
 
+    
+var runner;
+var sounds;
+
+function soundready() {
+    sounds = PIXI.audioManager.getAudio("gameMusic.mp3");
+    console.log(sounds);
+    sounds.loop = true;
+    sounds.play();
+}
+
+var doggy;
+var kitty;
+var bone;
+var someLevels;
+var otherLevels;
+var baseBricks; 
+
 function ready() {
     
-    var doggy = new PIXI.Sprite(PIXI.Texture.fromFrame("dog4.png"));
-    var kitty = new PIXI.Sprite(PIXI.Texture.fromImage('kitty.png'));
-    var bone = new PIXI.Sprite(PIXI.Texture.fromImage('bone.png'));
+    var frames = []
+    for (var i=1; i<=4; i++) {
+        frames.push(PIXI.Texture.fromImage('dog' + i + '.png'))
+    }
+    
+    runner = new PIXI.extras.MovieClip(frames);
+    runner.animationSpeed = 0.17;
+    runner.position.y = 544;
+    
+    doggy = new PIXI.Sprite(PIXI.Texture.fromFrame("dog4.png"));
+    kitty = new PIXI.Sprite(PIXI.Texture.fromFrame('kitty.png'));
+    bone = new PIXI.Sprite(PIXI.Texture.fromFrame('bone.png'));
+    someLevels = PIXI.Texture.fromFrame("brick600.png");
+    baseBricks = PIXI.Texture.fromFrame("brick800.png");
+    otherLevels = PIXI.Texture.fromFrame("brick700.png");
+    baseBrick = new PIXI.Sprite(baseBricks);
+
     gameStage.addChild(kitty);
     gameStage.addChild(obstacles);
     gameStage.addChild(bone);
     
-    var someLevels = PIXI.Texture.fromFrame("brick600.png");
-    var baseBricks = PIXI.Texture.fromFrame("brick800.png");
-    var otherLevels = PIXI.Texture.fromFrame("brick700.png");
-
+   
     var level1 = new PIXI.Sprite(otherLevels);
     var level2 = new PIXI.Sprite(otherLevels);
     var level3 = new PIXI.Sprite(otherLevels);
@@ -37,28 +76,24 @@ function ready() {
     var level6 = new PIXI.Sprite(otherLevels);
 
 
-    var baseBrick = new PIXI.Sprite(baseBricks);
     
-    //kitty = { x: 345, y:400};
     kitty.position.y = 345;
-    kitty.position.x = 400;
-    var target = {x: 425, y: 400};
-    createjs.Tween.get(kitty.position).to(target, 2000);
-    tween.start();
-    //kitty.position.y = 345;
-    //kitty.position.x = 400;
-    bone.position.x = 100;
-    bone.position.y = renderer.width - bone.width;
+    kitty.position.x = 300;
+    var target = {x: 500, y: 345};
+    if (kitty.position.x = 300){
+        var tween = createjs.Tween.get(kitty.position).to(target, 3000);
+        
+    }
+    kitty.position.x = 500;
+    if (kitty.position.x = 500)
+        var tweenBack = createjs.Tween.get(kitty.position).to({x:300, y:345}, 3000);
+    //tween.yoyo(true, 3000);
+    
+    bone.position.x = 750;
+    bone.position.y = 20;
     //doggy.position.y = 544;
     
-    var frames = []
-    for (var i=1; i<=4; i++) {
-        frames.push(PIXI.Texture.fromFrame('dog' + i + '.png'))
-    }
     
-    runner = new PIXI.extras.MovieClip(frames);
-    runner.animationSpeed = 0.17;
-    runner.position.y = 544;
     //runner.play();
     gameStage.addChild(runner);
 
@@ -112,14 +147,9 @@ function ready() {
     //gameStage.addChild(doggy);
 }
 
-start = new PIXI.Sprite(PIXI.Texture.fromImage("instructions2.png"));
-start.position.x = 0;
-start.position.y = 0;
-start.visible = true;
-document.addEventListener('onclick', start.visible = false);
-gameStage.addChild(start);
 
-gameOverTexture = new PIXI.Sprite(PIXI.Texture.fromImage("gameover.png"));
+
+var gameOverTexture = new PIXI.Sprite(PIXI.Texture.fromImage("gameover.png"));
 gameOverTexture.position.x = 0;
 gameOverTexture.position.y = 0;
 gameOverTexture.visible = false;
@@ -127,6 +157,11 @@ gameStage.addChild(gameOverTexture);
 
 
 var keys = {};
+
+// function mouseHandler(e) {
+//     gameStage.visible = true;
+//     gameStart = true;
+//}
 
 function keyupEventHandler(e) {
     runner.stop();
@@ -145,7 +180,7 @@ document.addEventListener('keydown', keydownEventHandler);
 document.addEventListener('keyup', keyupEventHandler);
 
 function movePlayer() {
-    if (collision()) { return false; }
+    if (collision()) { return; }
     if(keys[87] || keys[38]) { // W key pressed
         if(runner.position.y > 0){
             runner.position.y -= 3;
@@ -170,13 +205,9 @@ function movePlayer() {
 function animate() {
     requestAnimationFrame(animate);
     movePlayer();
-    var target = {x: 425, y: 400};
-    createjs.Tween.get(kitty.position).to(target, 2000);
-    tween.start();
     //sprite.rotation += 0.1;
     collision();
     renderer.render(gameStage);
-
 }
 animate();
 
@@ -194,16 +225,16 @@ function collision() {
     }
 }
 
-function winningCollision() {
-    var bricks = obstacles.children;
-    for (var i = 0; i < bricks.length; i++){
-        if (!(bricks[i].position.x > (runner.position.x + runner.width) || (bricks[i].position.x + bricks[i].width) < runner.position.x || bricks[i].position.y > (runner.position.y + runner.height) || (bricks[i].position.y + bricks[i].height) < runner.position.y)){
-            //winTexture.visible;
-            document.removeEventListener('keydown', keydownEventHandler);
-        }
-        return false;
+// function winningCollision() {
+//     var bricks = obstacles.children;
+//     for (var i = 0; i < bricks.length; i++){
+//         if (!(bricks[i].position.x > (runner.position.x + runner.width) || (bricks[i].position.x + bricks[i].width) < runner.position.x || bricks[i].position.y > (runner.position.y + runner.height) || (bricks[i].position.y + bricks[i].height) < runner.position.y)){
+//             //winTexture.visible;
+//             document.removeEventListener('keydown', keydownEventHandler);
+//         }
+//         return false;
 
     
-    }
-}
+//     }
+// }
 

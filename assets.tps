@@ -141,7 +141,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>assets.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -188,6 +188,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">cs413/project2/bone.png</key>
             <key type="filename">cs413/project2/brick600.png</key>
             <key type="filename">cs413/project2/brick700.png</key>
             <key type="filename">cs413/project2/brick800.png</key>
@@ -196,6 +197,9 @@
             <key type="filename">cs413/project2/dog2.png</key>
             <key type="filename">cs413/project2/dog3.png</key>
             <key type="filename">cs413/project2/dog4.png</key>
+            <key type="filename">cs413/project2/instructions1.png</key>
+            <key type="filename">cs413/project2/instructions2.png</key>
+            <key type="filename">cs413/project2/kitty.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -203,6 +207,7 @@
         </map>
         <key>fileList</key>
         <array>
+            <filename>cs413/project2/bone.png</filename>
             <filename>cs413/project2/brick600.png</filename>
             <filename>cs413/project2/brick700.png</filename>
             <filename>cs413/project2/brick800.png</filename>
@@ -211,6 +216,9 @@
             <filename>cs413/project2/dog2.png</filename>
             <filename>cs413/project2/dog3.png</filename>
             <filename>cs413/project2/dog4.png</filename>
+            <filename>cs413/project2/instructions1.png</filename>
+            <filename>cs413/project2/instructions2.png</filename>
+            <filename>cs413/project2/kitty.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

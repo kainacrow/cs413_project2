@@ -1,8 +1,17 @@
 {"frames": {
 
+"bone.png":
+{
+	"frame": {"x":903,"y":652,"w":29,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":12},
+	"sourceSize": {"w":29,"h":12},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "brick600.png":
 {
-	"frame": {"x":1,"y":133,"w":600,"h":64},
+	"frame": {"x":703,"y":669,"w":600,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":64},
@@ -11,7 +20,7 @@
 },
 "brick700.png":
 {
-	"frame": {"x":1,"y":67,"w":700,"h":64},
+	"frame": {"x":1,"y":669,"w":700,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":700,"h":64},
@@ -20,7 +29,7 @@
 },
 "brick800.png":
 {
-	"frame": {"x":1,"y":1,"w":800,"h":64},
+	"frame": {"x":1,"y":603,"w":800,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":64},
@@ -29,7 +38,7 @@
 },
 "bricks.png":
 {
-	"frame": {"x":603,"y":133,"w":64,"h":64},
+	"frame": {"x":803,"y":603,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -38,7 +47,7 @@
 },
 "dog1.png":
 {
-	"frame": {"x":669,"y":133,"w":27,"h":23},
+	"frame": {"x":922,"y":603,"w":27,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":27,"h":23},
@@ -47,7 +56,7 @@
 },
 "dog2.png":
 {
-	"frame": {"x":698,"y":156,"w":32,"h":15},
+	"frame": {"x":869,"y":652,"w":32,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":15},
@@ -56,7 +65,7 @@
 },
 "dog3.png":
 {
-	"frame": {"x":698,"y":133,"w":27,"h":21},
+	"frame": {"x":922,"y":628,"w":27,"h":21},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":27,"h":21},
@@ -65,11 +74,38 @@
 },
 "dog4.png":
 {
-	"frame": {"x":669,"y":158,"w":27,"h":23},
+	"frame": {"x":951,"y":603,"w":27,"h":23},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":27,"h":23},
 	"sourceSize": {"w":32,"h":23},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"instructions1.png":
+{
+	"frame": {"x":1,"y":1,"w":800,"h":600},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
+	"sourceSize": {"w":800,"h":600},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"instructions2.png":
+{
+	"frame": {"x":803,"y":1,"w":800,"h":600},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
+	"sourceSize": {"w":800,"h":600},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"kitty.png":
+{
+	"frame": {"x":869,"y":603,"w":51,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":47},
+	"sourceSize": {"w":51,"h":47},
 	"pivot": {"x":0.5,"y":0.5}
 }},
 "meta": {
@@ -77,8 +113,8 @@
 	"version": "1.0",
 	"image": "assets.png",
 	"format": "RGBA8888",
-	"size": {"w":802,"h":198},
+	"size": {"w":1604,"h":734},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f9a919c7250f677a3f4e9382b95a8e1f:ce09c6ca7ecd5def48d6f17f051e9988:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a9e0d8f64978d9c3179058848f98d40c:a37e6f89e413b4859283b1e729d38b3f:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
