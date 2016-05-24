@@ -8,10 +8,13 @@ var gameStage = new PIXI.Container();
 //var startStage = new PIXI.Container();
 
 //var gameStart = false;
-var start = new PIXI.Sprite(PIXI.Texture.fromImage("instructions2.png"));
-start.position.x = 0;
-start.position.y = 0;
-//start.visible = true;
+var title = new PIXI.Sprite(PIXI.Texture.fromImage('title.png'));
+
+var credits = new PIXI.Sprite(PIXI.Texture.fromImage("credits.png"));
+
+var start = new PIXI.Sprite(PIXI.Texture.fromImage("instructions1.png"));
+
+
 
 //document.addEventListener('onclick', start.visible = false);
 //startStage.addChild(gameStage);
@@ -21,8 +24,18 @@ start.position.y = 0;
 
 PIXI.loader.add("assets.json").load(ready);
 PIXI.loader.add("gameMusic.mp3").load(soundready);
+
+var backPicture = new PIXI.Sprite(PIXI.Texture.fromImage("background.png"));
+backPicture.position.x = 0;
+backPicture.position.y = 0;
+gameStage.addChild(backPicture);
     
 var obstacles = new PIXI.Container();
+var loseTexture = new PIXI.Sprite(PIXI.Texture.fromImage("lose.png"));
+var lose = new PIXI.Text("You got in a fight with the cat and lost.", {font:"30px Times New Roman", fill: "#fff"})
+var winTexture = new PIXI.Sprite(PIXI.Texture.fromImage("winCollision.png"));
+gameStage.addChild(lose);
+
 
 
     
@@ -80,13 +93,16 @@ function ready() {
     kitty.position.y = 345;
     kitty.position.x = 300;
     var target = {x: 500, y: 345};
-    if (kitty.position.x = 300){
-        var tween = createjs.Tween.get(kitty.position).to(target, 3000);
-        
-    }
-    kitty.position.x = 500;
-    if (kitty.position.x = 500)
-        var tweenBack = createjs.Tween.get(kitty.position).to({x:300, y:345}, 3000);
+    createjs.Tween.get(kitty.position, {loop:true})
+    .to({x:500}, 3000)
+    .to({x:300}, 3000);
+    // var tween = createjs.Tween.get(kitty.position).to(target, 3000);
+    // var tweenBack = createjs.Tween.get(kitty.position).to({x:300, y:345}, 3000);
+    // tween.onMotionFinished = function() {
+    //     this.setFunc (tweenBack);
+    //     this.yoyo;
+    //     delete this.onMotionFinished;
+    //     }
     //tween.yoyo(true, 3000);
     
     bone.position.x = 750;
@@ -143,25 +159,48 @@ function ready() {
     obstacles.addChild(level5);
     obstacles.addChild(level6);
 
+    winTexture.position.x = 0;
+    winTexture.position.y = 0;
+    winTexture.visible = false;
+    gameStage.addChild(winTexture);
+    
+    
+    start.position.x = 0;
+    start.position.y = 0;
+    gameStage.addChild(start);
+    
+    credits.position.x = 0;
+    credits.position.y = 0;
+    gameStage.addChild(credits);
+    
+    title.position.x = 0;
+    title.position.y = 0;
+    gameStage.addChild(title);
+    
+    
+    
+
+
+
+    loseTexture.position.x = 0;
+    loseTexture.position.y = 0;
+    lose.position.x = 200;
+    lose.position.y = 200;
+    loseTexture.visible = false;
+    lose.visible = false;
+    gameStage.addChild(loseTexture);
 
     //gameStage.addChild(doggy);
 }
 
 
 
-var gameOverTexture = new PIXI.Sprite(PIXI.Texture.fromImage("gameover.png"));
-gameOverTexture.position.x = 0;
-gameOverTexture.position.y = 0;
-gameOverTexture.visible = false;
-gameStage.addChild(gameOverTexture);
+
 
 
 var keys = {};
 
-// function mouseHandler(e) {
-//     gameStage.visible = true;
-//     gameStart = true;
-//}
+
 
 function keyupEventHandler(e) {
     runner.stop();
@@ -170,10 +209,18 @@ function keyupEventHandler(e) {
 
 function keydownEventHandler(e) {
     keys[e.which] = true;
+    title.visible = false;
     runner.play();
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+    if([32, 37, 38, 39, 40, 9].indexOf(e.keyCode) > -1) {
         e.preventDefault();
     }
+    if([9].indexOf(e.keyCode) > -1) {
+        credits.visible = false;
+    }
+    if([13].indexOf(e.keyCode) > -1) {
+        start.visible = false;
+    }
+    
 }
 
 document.addEventListener('keydown', keydownEventHandler);
@@ -207,6 +254,8 @@ function animate() {
     movePlayer();
     //sprite.rotation += 0.1;
     collision();
+    winningCollision();
+    catCollision();
     renderer.render(gameStage);
 }
 animate();
@@ -219,22 +268,31 @@ function collision() {
            
             //document.removeEventListener('keydown', keydownEventHandler);
         }
-        return false;
+        //return false;
 
     
     }
 }
 
-// function winningCollision() {
-//     var bricks = obstacles.children;
-//     for (var i = 0; i < bricks.length; i++){
-//         if (!(bricks[i].position.x > (runner.position.x + runner.width) || (bricks[i].position.x + bricks[i].width) < runner.position.x || bricks[i].position.y > (runner.position.y + runner.height) || (bricks[i].position.y + bricks[i].height) < runner.position.y)){
-//             //winTexture.visible;
-//             document.removeEventListener('keydown', keydownEventHandler);
-//         }
-//         return false;
+function catCollision() {
+    if (!(kitty.position.x > (runner.position.x + runner.width) || (kitty.position.x + kitty.width) < runner.position.x || kitty.position.y > (runner.position.y + runner.height) || (kitty.position.y + kitty.height) < runner.position.y)){
+            loseTexture.visible = true;
+            lose.visible = true
+            document.removeEventListener('keydown', keydownEventHandler);
+        
 
     
-//     }
-// }
+    }
+}
+
+function winningCollision() {
+
+        if (!(bone.position.x > (runner.position.x + runner.width) || (bone.position.x + bone.width) < runner.position.x || bone.position.y > (runner.position.y + runner.height) || (bone.position.y + bone.height) < runner.position.y)){
+            winTexture.visible = true;
+            document.removeEventListener('keydown', keydownEventHandler);
+        
+
+    
+    }
+}
 
